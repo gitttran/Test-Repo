@@ -1,0 +1,72 @@
+Sub wallstreet()
+
+Dim i
+Dim j
+Dim yearopen As Double
+Dim yearclose As Double
+Dim yearchange As Double
+
+i = 2
+j = 2
+
+'create headers
+Cells(1, 9).Value = "Ticker"
+Cells(1, 10).Value = "Yearly Change"
+Cells(1, 11).Value = "Percent Change"
+Cells(1, 12).Value = "Total Stock Volume"
+
+' loops through to add tickers in I column and add up stock volume
+' it goes through
+yearopen = 0
+yearclose = 0
+yearchange = 0
+
+Do While Cells(i, 1).Value <> ""
+
+    If Cells(j, 9).Value = "" Then
+    
+    Cells(j, 9).Value = Cells(i, 1).Value
+    Cells(j, 12).Value = Cells(j, 12).Value + Cells(i, 7).Value
+    
+    yearopen = Cells(i, 3).Value
+    
+    
+    ElseIf Cells(j, 9).Value = Cells(i, 1).Value Then
+    
+    Cells(j, 12).Value = Cells(j, 12).Value + Cells(i, 7).Value
+    
+    ElseIf Cells(j, 9).Value <> Cells(i, 1).Value Then
+    
+    yearclose = Cells((i - 1), 6).Value
+    
+    yearchange = yearclose - yearopen
+    
+    Cells(j, 10).Value = yearchange
+    
+    Cells(j, 11).NumberFormat = "0.00%"
+        If yearopen <> "0" And yearopen <> yearclose Then
+        
+            Cells(j, 11).Value = yearchange / yearopen
+        Else
+            Cells(j, 11).Value = 0
+    ' percent change is giving divid by 0 error.
+        End If
+        
+    j = j + 1
+    
+    yearopen = Cells(i, 3).Value
+    
+    Cells(j, 9).Value = Cells(i, 1).Value
+    Cells(j, 12).Value = Cells(j, 12).Value + Cells(i, 7).Value
+    
+    End If
+
+i = i + 1
+
+Loop
+
+' loops through the unique ticker column to find lowest
+
+
+
+End Sub
