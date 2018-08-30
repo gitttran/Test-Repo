@@ -118,17 +118,19 @@ volarr = ws.Range("L2:L" & lastrow).Value
 Max = Application.Match(Application.Max(perarr), perarr, 0)
     ws.Cells(2, 15).Value = ws.Cells((Max + 1), 9).Value
     ws.Cells(2, 16).Value = ws.Cells((Max + 1), 11).Value
-     ws.Cells(2, 15).NumberFormat = "0.00%"
+     ws.Cells(2, 16).NumberFormat = "0.00%"
 Min = Application.Match(Application.Min(perarr), perarr, 0)
     ws.Cells(3, 15).Value = ws.Cells((Min + 1), 9).Value
     ws.Cells(3, 16).Value = ws.Cells((Min + 1), 11).Value
-    ws.Cells(3, 15).NumberFormat = "0.00%"
+    ws.Cells(3, 16).NumberFormat = "0.00%"
 vol = Application.Match(Application.Max(volarr), volarr, 0)
     ws.Cells(4, 15).Value = ws.Cells((vol + 1), 9).Value
     ws.Cells(4, 16).Value = ws.Cells((vol + 1), 12).Value
 
 
-
+Range("J1:Q1").Select
+ws.Range("J1:Q1").EntireColumn.AutoFit
+   
 
 Next ws
 
