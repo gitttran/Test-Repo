@@ -7,12 +7,17 @@ Dim j
 Dim yearopen As Double
 Dim yearclose As Double
 Dim yearchange As Double
+Dim perarr
+Dim volarr
+
+
 
 For Each ws In Worksheets
 
 
 i = 2
 j = 2
+
 'create headers
 ws.Cells(1, 9).Value = "Ticker"
 ws.Cells(1, 10).Value = "Yearly Change"
@@ -102,22 +107,28 @@ yearchange = yearclose - yearopen
             ws.Cells(j, 11).Value = 0
 
         End If
-
+' loops through the unique ticker column to find lowest
 
 lastrow = ws.Cells(Rows.Count, 9).End(xlUp).Row
 
+lastrow = Cells(Rows.Count, 10).End(xlUp).Row
 
-'Max values
+perarr = Range("K2:K" & lastrow).Value
+volarr = Range("L2:L" & lastrow).Value
 
-maxincrease = WorksheetFunction.Max(Range(
-maxincrease = WorksheetFunction.Max(Range("K2:K" & lastrow))
-maxdecrease = WorksheetFunction.Min(Range("K2:K" & lastrow))
-maxvol = WorksheetFunction.Max(Range("L2:L" & lastrow))
+Max = Application.Match(Application.Max(perarr), perarr, 0)
+    Cells(2, 15).Value = Cells((Max + 1), 9).Value
+    Cells(2, 16).Value = Cells((Max + 1), 11).Value
+Min = Application.Match(Application.Min(perarr), perarr, 0)
+    Cells(3, 15).Value = Cells((Min + 1), 9).Value
+    Cells(3, 16).Value = Cells((Min + 1), 11).Value
+vol = Application.Match(Application.Min(volarr), volarr, 0)
+    Cells(4, 15).Value = Cells((vol + 1), 9).Value
+    Cells(4, 16).Value = Cells((vol + 1), 11).Value
 
 
-'autofit
-Columns("J:P").Select
-Columns("J:P").EntireColumn.autofit
+
+
 Next ws
 
 End Sub
